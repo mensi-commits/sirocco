@@ -304,6 +304,16 @@ func main() {
 	})
 
 
+
+
+
+
+
+
+	
+// Events types include: "worker_registered", "heartbeat", "route", etc.
+
+	// ROUTE ENDPOINT FOR UI TO GET ROUTING INFO.
 	mux.HandleFunc("/route", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("[HTTP] /route")
 
@@ -322,9 +332,7 @@ func main() {
 	})
 
 
-
 	// HEARTBEAT ENDPOINT FOR WORKERS.
-	// Receives POST /workers/heartbeat from workers, updates their status.
 	mux.HandleFunc("/workers/heartbeat", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("[HTTP] /workers/heartbeat")
 
@@ -334,7 +342,6 @@ func main() {
 		writeJSON(w, 200, cluster.heartbeat(req))
 	})
 
-	// ACTIVE WORKERS ENDPOINT TO LIST ONLY HEALTHY WORKERS.
 	mux.HandleFunc("/workers/register", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("[HTTP] /workers/register")
 

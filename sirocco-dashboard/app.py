@@ -16,32 +16,6 @@ def index():
     return render_template("index.html")
 
 
-
-# =========================
-# EVENTS (for visualization)
-# =========================
-
-events = []
-
-@app.route("/api/events", methods=["POST"])
-def receive_event():
-    event = request.json
-    events.append(event)
-
-    # keep memory bounded
-    if len(events) > 5:
-        events.pop(0)
-
-    return jsonify({"ok": True})
-
-
-@app.route("/api/events", methods=["GET"])
-def get_events():
-    return jsonify({
-        "ok": True,
-        "events": events
-    })
-
 # =========================
 # CLUSTER HEALTH 
 # =========================
@@ -78,6 +52,34 @@ def routes():
         return jsonify(r.json())
     except Exception as e:
         return jsonify({"error": str(e)})
+
+
+
+# =========================
+# EVENTS (for visualization)
+# =========================
+
+events = []
+
+@app.route("/api/events", methods=["POST"])
+def receive_event():
+    event = request.json
+    events.append(event)
+
+    # keep memory bounded
+    if len(events) > 5:
+        events.pop(0)
+
+    return jsonify({"ok": True})
+
+
+@app.route("/api/events", methods=["GET"])
+def get_events():
+    return jsonify({
+        "ok": True,
+        "events": events
+    })
+
 
 
 

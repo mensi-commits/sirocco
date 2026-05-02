@@ -16,7 +16,7 @@ root:root@tcp(127.0.0.1:3306)/sirocco
 
 
 go run ./cmd/worker \
-  -id=worker-1 \
-  -addr=:8091 \
+  -id=worker-2 \
+  -addr=:8092 \
   -cluster=http://localhost:8081 \
   -mysql="sirocco:sirocco@tcp(127.0.0.1:3306)/sirocco"
