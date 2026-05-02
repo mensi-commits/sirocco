@@ -25,21 +25,33 @@ type cacheEntry struct {
 }
 
 type Switch struct {
-	clusterURL string
-	cacheTTL   time.Duration
+    clusterURL string
+    cacheTTL   time.Duration
 
-	mu    sync.RWMutex
-	cache map[string]cacheEntry
+    mu    sync.RWMutex
+    cache map[string]cacheEntry
+
+    idMu   sync.Mutex
+    nextID int64
 }
 
 func NewSwitch(clusterURL string, cacheTTL time.Duration) *Switch {
-	log.Printf("[BOOT] Switch cluster=%s cacheTTL=%s", clusterURL, cacheTTL)
+    log.Printf("[BOOT] Switch cluster=%s cacheTTL=%s", clusterURL, cacheTTL)
 
-	return &Switch{
-		clusterURL: strings.TrimRight(clusterURL, "/"),
-		cacheTTL:   cacheTTL,
-		cache:      make(map[string]cacheEntry),
-	}
+    return &Switch{
+        clusterURL: strings.TrimRight(clusterURL, "/"),
+        cacheTTL:   cacheTTL,
+        cache:      make(map[string]cacheEntry),
+        nextID:     0,
+    }
+}
+
+func (s *Switch) generateID() string {
+    s.idMu.Lock()
+    defer s.idMu.Unlock()
+
+    s.nextID++
+    return fmt.Sprintf("%d", s.nextID)
 }
 
 func cacheKey(table, key, mode string) string {
@@ -176,27 +188,31 @@ func (s *Switch) handleQuery(sql string) (protocol.QueryResponse, error) {
 
 	/* ================= INSERT ================= */
 	case sqlparse.OpInsert:
-		route, err := s.getRoute(q.Table, q.KeyValue, "write")
-		if err != nil {
-			return protocol.QueryResponse{}, err
-		}
+    // Switch ALWAYS generates its own shard key (ID)
+    q.KeyValue = s.generateID()
+    log.Printf("[ID GEN] generated id=%s for table=%s", q.KeyValue, q.Table)
 
-		resp, err := postExecute(route.Address, protocol.ExecuteRequest{
-			Operation: "insert",
-			Table:     q.Table,
-			Key:       q.KeyValue,
-			Columns:   q.Columns,
-		})
-		if err != nil {
-			return protocol.QueryResponse{}, err
-		}
+    route, err := s.getRoute(q.Table, q.KeyValue, "write")
+    if err != nil {
+        return protocol.QueryResponse{}, err
+    }
 
-		return protocol.QueryResponse{
-			OK:       resp.OK,
-			Message:  resp.Message,
-			Affected: resp.Affected,
-			Route:    &route,
-		}, nil
+    resp, err := postExecute(route.Address, protocol.ExecuteRequest{
+        Operation: "insert",
+        Table:     q.Table,
+        Key:       q.KeyValue,
+        Columns:   q.Columns,
+    })
+    if err != nil {
+        return protocol.QueryResponse{}, err
+    }
+
+    return protocol.QueryResponse{
+        OK:       resp.OK,
+        Message:  resp.Message,
+        Affected: resp.Affected,
+        Route:    &route,
+    }, nil
 
 	/* ================= SELECT (FIXED) ================= */
 	case sqlparse.OpSelect:

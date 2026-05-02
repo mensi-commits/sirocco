@@ -1,5 +1,3 @@
-[![Go CI](https://github.com/mensi-commits/sirocco/actions/workflows/go.yml/badge.svg)](https://github.com/mensi-commits/sirocco/actions/workflows/go.yml)
-
 # SiroccoDB
 
 A lightweight distributed database system built with Go, featuring a SQL-like query engine, a routing switch layer, a cluster coordinator, and worker nodes backed by MySQL.
