@@ -6,6 +6,8 @@ A lightweight distributed database system built with Go, featuring a SQL-like qu
 
 # Architecture
 
+![alt text](./design.png)
+
 ```
 Client / Flask App
         ↓
