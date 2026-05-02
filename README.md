@@ -270,9 +270,11 @@ Here’s your customized version for your repo **`mensi-commits/sirocco`**:
 
 ---
 
-## ⭐ Star History
+## License
 
-## Star History
+This project is open source and available under the [MIT License](LICENSE).
+
+---
 
 ## Star History
 
@@ -282,12 +284,6 @@ Here’s your customized version for your repo **`mensi-commits/sirocco`**:
     src="https://www.star-history.com/?repos=mensi-commits%2Fsirocco&type=date&legend=top-left"
   />
 </a>
-
----
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
