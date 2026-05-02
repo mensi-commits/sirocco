@@ -272,11 +272,15 @@ Here’s your customized version for your repo **`mensi-commits/sirocco`**:
 
 ## ⭐ Star History
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=date&theme=dark&legend=top-left" />
-  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=date&legend=top-left" />
-  <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=date&legend=top-left" />
-</picture>
+## Star History
+
+<a href="https://www.star-history.com/?repos=mensi-commits%2Fsirocco&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=date&legend=top-left" />
+ </picture>
+</a>
 
 ---
 
@@ -287,11 +291,3 @@ Here’s your customized version for your repo **`mensi-commits/sirocco`**:
   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=mensi-commits/sirocco&style=landscape1" />
   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=mensi-commits/sirocco&style=landscape1" />
 </picture>
-
----
-
-If you want, I can also:
-
-- add multiple repos comparison (like “sirocco vs other projects”)
-- embed GitHub stats (stars, forks, commits)
-- or make a full **cool README dashboard section** for your project 👍
