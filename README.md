@@ -301,4 +301,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-Built with &hearts; by [mensi](https://enscribe.dev)!
+Built with &#9749; by [mensi](https://enscribe.dev)
