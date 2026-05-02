@@ -278,7 +278,9 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## Star History
 
-<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://www.star-history.com/?repos=mensi-commits%2Fsirocco&type=date&legend=top-left" frameBorder="0"></iframe>
+<a href="https://www.star-history.com/?repos=mensi-commits%2Fsirocco&type=timeline&logscale=&legend=top-left">
+   <img alt="Star History Chart" src="star-history.png" />
+</a>
 
 ---
 
