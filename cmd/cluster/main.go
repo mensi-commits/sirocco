@@ -20,7 +20,7 @@ import (
    CONFIG
 ========================= */
 
-var UI_ENDPOINT = "http://localhost:7000/api/events"
+var UI_ENDPOINT = "http://192.168.1.101:7000/api/events"
 
 var httpClient = &http.Client{
 	Timeout: 2 * time.Second,

@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Sirocco Cluster Dashboard</title>
+    <script src="/static/app.js" defer></script>
+    <style>
+      body {
+        font-family: Arial;
+        background: #0f172a;
+        color: white;
+        padding: 20px;
+      }
+      .card {
+        background: #1e293b;
+        padding: 15px;
+        margin: 10px;
+        border-radius: 10px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      table {
+        width: 100%;
+        color: white;
+        border-collapse: collapse;
+      }
+      td,
+      th {
+        border: 1px solid #334155;
+        padding: 8px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>🚀 Sirocco Cluster Dashboard</h1>
+
+    <div class="grid">
+      <div class="card">
+        <h3>🟢 Switch</h3>
+        <pre id="switch"></pre>
+      </div>
+
+      <div class="card">
+        <h3>🧠 Workers</h3>
+        <pre id="workers"></pre>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📊 Routes</h3>
+      <pre id="routes"></pre>
+    </div>
+
+    <div class="card">
+      <h3>⚡ Live Events</h3>
+      <div id="events"></div>
+    </div>
+  </body>
+</html>
