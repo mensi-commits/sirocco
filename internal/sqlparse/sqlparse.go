@@ -42,31 +42,32 @@ func Parse(raw string) (*Query, error) {
 	raw = strings.TrimSuffix(raw, ";")
 
 	if m := insertRe.FindStringSubmatch(raw); m != nil {
-		cols := splitCSV(m[2])
-		vals := splitCSV(m[3])
-		if len(cols) != len(vals) {
-			return nil, fmt.Errorf("insert columns and values length mismatch")
-		}
-		q := &Query{
-			Operation: OpInsert,
-			Table:     strings.ToLower(m[1]),
-			Columns:   map[string]string{},
-			Raw:       raw,
-		}
-		for i := range cols {
-			key := strings.ToLower(strings.TrimSpace(cols[i]))
-			val := unquote(strings.TrimSpace(vals[i]))
-			q.Columns[key] = val
-			if key == "user_id" {
-				q.KeyColumn = key
-				q.KeyValue = val
-			}
-		}
-		if q.KeyValue == "" {
-			return nil, errors.New("insert requires sharding key user_id")
-		}
-		return q, nil
-	}
+    cols := splitCSV(m[2])
+    vals := splitCSV(m[3])
+
+    if len(cols) != len(vals) {
+        return nil, fmt.Errorf("insert columns and values length mismatch")
+    }
+
+    q := &Query{
+        Operation: OpInsert,
+        Table:     strings.ToLower(m[1]),
+        Columns:   map[string]string{},
+        Raw:       raw,
+    }
+
+    for i := range cols {
+        key := strings.ToLower(strings.TrimSpace(cols[i]))
+        val := unquote(strings.TrimSpace(vals[i]))
+        q.Columns[key] = val
+    }
+
+    // ❌ REMOVE shard key requirement entirely
+    q.KeyColumn = ""
+    q.KeyValue = ""
+
+    return q, nil
+}
 
 	if m := selectRe.FindStringSubmatch(raw); m != nil {
 		fields := strings.TrimSpace(m[1])
