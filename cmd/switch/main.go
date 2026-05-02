@@ -174,9 +174,12 @@ func main() {
    QUERY ENGINE
 ========================= */
 
+
+// executed when request to /query is received. It parses the SQL, 
+// determines the operation, gets routing info, and forwards the request to the appropriate worker.
 func (s *Switch) handleQuery(sql string) (protocol.QueryResponse, error) {
 	log.Printf("[PARSE] %s", sql)
-	
+
 	q, err := sqlparse.Parse(sql)
 
 	if err != nil {

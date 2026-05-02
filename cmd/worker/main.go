@@ -77,6 +77,7 @@ func main() {
 		})
 	})
 
+
 	// ================= EXECUTE =================
 	mux.HandleFunc("/execute", func(rw http.ResponseWriter, r *http.Request) {
 		log.Println("[HTTP] /execute called")
@@ -137,25 +138,80 @@ func main() {
 	log.Fatal(http.ListenAndServe(w.addr, mux))
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ================= MYSQL EXECUTION =================
 
-func (w *Worker) execute(req protocol.ExecuteRequest) protocol.ExecuteResponse {
+func isSafeIdentifier(s string) bool {
+	if s == "" {
+		return false
+	}
+	for i, r := range s {
+		switch {
+		case r >= 'a' && r <= 'z':
+		case r >= 'A' && r <= 'Z':
+		case r >= '0' && r <= '9' && i > 0:
+		case r == '_':
+		default:
+			return false
+		}
+	}
+	return true
+}
 
+func (w *Worker) execute(req protocol.ExecuteRequest) protocol.ExecuteResponse {
 	log.Printf("[DB EXEC] %s on table=%s key=%s", req.Operation, req.Table, req.Key)
+
+	if !isSafeIdentifier(req.Table) {
+		return protocol.ExecuteResponse{OK: false, Message: "invalid table name"}
+	}
+	if req.Key == "" && req.Operation != "count" {
+		return protocol.ExecuteResponse{OK: false, Message: "missing key"}
+	}
 
 	switch req.Operation {
 
 	case "insert":
-		jsonData, _ := json.Marshal(req.Columns)
+		jsonData, err := json.Marshal(req.Columns)
+		if err != nil {
+			log.Println("[DB INSERT] marshal error:", err)
+			return protocol.ExecuteResponse{OK: false, Message: err.Error()}
+		}
 
 		log.Printf("[DB INSERT] key=%s data=%s", req.Key, string(jsonData))
 
-		_, err := w.db.Exec(`
-			INSERT INTO users (user_id, data)
+		query := fmt.Sprintf(`
+			INSERT INTO %s (user_id, data)
 			VALUES (?, ?)
 			ON DUPLICATE KEY UPDATE data = ?
-		`, req.Key, jsonData, jsonData)
+		`, req.Table)
 
+		_, err = w.db.Exec(query, req.Key, jsonData, jsonData)
 		if err != nil {
 			log.Println("[DB INSERT ERROR]", err)
 			return protocol.ExecuteResponse{OK: false, Message: err.Error()}
@@ -167,7 +223,8 @@ func (w *Worker) execute(req protocol.ExecuteRequest) protocol.ExecuteResponse {
 	case "select":
 		log.Printf("[DB SELECT] key=%s", req.Key)
 
-		row := w.db.QueryRow("SELECT data FROM users WHERE user_id = ?", req.Key)
+		query := fmt.Sprintf(`SELECT data FROM %s WHERE user_id = ?`, req.Table)
+		row := w.db.QueryRow(query, req.Key)
 
 		var data string
 		err := row.Scan(&data)
@@ -187,7 +244,8 @@ func (w *Worker) execute(req protocol.ExecuteRequest) protocol.ExecuteResponse {
 	case "delete":
 		log.Printf("[DB DELETE] key=%s", req.Key)
 
-		res, err := w.db.Exec("DELETE FROM users WHERE user_id = ?", req.Key)
+		query := fmt.Sprintf(`DELETE FROM %s WHERE user_id = ?`, req.Table)
+		res, err := w.db.Exec(query, req.Key)
 		if err != nil {
 			log.Println("[DB DELETE ERROR]", err)
 			return protocol.ExecuteResponse{OK: false, Message: err.Error()}
@@ -201,11 +259,14 @@ func (w *Worker) execute(req protocol.ExecuteRequest) protocol.ExecuteResponse {
 	case "count":
 		log.Println("[DB COUNT] called")
 
+		query := fmt.Sprintf(`SELECT COUNT(*) FROM %s`, req.Table)
 		var c int
-		w.db.QueryRow("SELECT COUNT(*) FROM users").Scan(&c)
+		if err := w.db.QueryRow(query).Scan(&c); err != nil {
+			log.Println("[DB COUNT ERROR]", err)
+			return protocol.ExecuteResponse{OK: false, Message: err.Error()}
+		}
 
 		log.Printf("[DB COUNT] result=%d", c)
-
 		return protocol.ExecuteResponse{OK: true, Count: c}
 
 	default:
@@ -213,6 +274,23 @@ func (w *Worker) execute(req protocol.ExecuteRequest) protocol.ExecuteResponse {
 		return protocol.ExecuteResponse{OK: false, Message: "unsupported"}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ================= CLUSTER =================
 
