@@ -266,18 +266,32 @@ If you want next step, I can build:
 - Grafana-style metrics
 - automatic failover and replication layer
 
-## Star History
+Here’s your customized version for your repo **`mensi-commits/sirocco`**:
+
+---
+
+## ⭐ Star History
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=star-history/star-history&type=date&theme=dark&legend=top-left" />
-  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=star-history/star-history&type=date&legend=top-left" />
-  <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=star-history/star-history&type=date&legend=top-left" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=date&theme=dark&legend=top-left" />
+  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=date&legend=top-left" />
+  <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=date&legend=top-left" />
 </picture>
 
-## test
+---
+
+## 📊 Alternative Style View
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=star-history/star-history&style=landscape1&theme=dark" />
-  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=star-history/star-history&style=landscape1" />
-  <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=star-history/star-history&style=landscape1" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=mensi-commits/sirocco&style=landscape1&theme=dark" />
+  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=mensi-commits/sirocco&style=landscape1" />
+  <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=mensi-commits/sirocco&style=landscape1" />
 </picture>
+
+---
+
+If you want, I can also:
+
+- add multiple repos comparison (like “sirocco vs other projects”)
+- embed GitHub stats (stars, forks, commits)
+- or make a full **cool README dashboard section** for your project 👍
