@@ -274,8 +274,14 @@ Here’s your customized version for your repo **`mensi-commits/sirocco`**:
 
 ## Star History
 
-<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://www.star-history.com/?repos=mensi-commits%2Fsirocco&type=date&legend=top-left" frameBorder="0"></iframe>
+## Star History
 
+<a href="https://www.star-history.com/?repos=mensi-commits/sirocco&type=date&legend=top-left">
+  <img 
+    alt="Star History Chart" 
+    src="https://api.star-history.com/svg?repos=mensi-commits/sirocco&type=Date"
+  />
+</a>
 ---
 
 ## 📊 Alternative Style View
