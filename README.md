@@ -279,7 +279,7 @@ Here’s your customized version for your repo **`mensi-commits/sirocco`**:
 <a href="https://www.star-history.com/?repos=mensi-commits/sirocco&type=date&legend=top-left">
   <img 
     alt="Star History Chart" 
-    src="https://api.star-history.com/svg?repos=mensi-commits/sirocco&type=Date"
+    src="https://www.star-history.com/?repos=mensi-commits%2Fsirocco&type=date&legend=top-left"
   />
 </a>
 
