@@ -274,22 +274,7 @@ Here’s your customized version for your repo **`mensi-commits/sirocco`**:
 
 ## Star History
 
-<a href="https://www.star-history.com/#mensi-commits/sirocco&Date">
-  <picture>
-    <source
-      media="(prefers-color-scheme: dark)"
-      srcset="https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=date&theme=dark&legend=top-left"
-    />
-    <source
-      media="(prefers-color-scheme: light)"
-      srcset="https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=date&theme=light&legend=top-left"
-    />
-    <img
-      alt="Star History Chart"
-      src="https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=date&theme=light&legend=top-left"
-    />
-  </picture>
-</a>
+<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://www.star-history.com/?type=date&repos=jktrn%2Fastro-erudite" frameBorder="0"></iframe>
 
 ---
 
