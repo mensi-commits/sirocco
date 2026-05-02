@@ -58,5 +58,18 @@
       <h3>⚡ Live Events</h3>
       <div id="events"></div>
     </div>
+    <div class="card">
+      <h3>⚡ Test Query</h3>
+
+      <input
+        id="sqlInput"
+        style="width: 100%; padding: 8px"
+        value="SELECT * FROM users WHERE user_id = 1"
+      />
+
+      <button onclick="testQuery()">Run Query</button>
+
+      <pre id="query"></pre>
+    </div>
   </body>
 </html>

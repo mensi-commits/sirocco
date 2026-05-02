@@ -18,7 +18,16 @@ async function fetchData() {
 }
 
 async function testQuery() {
-  let res = await fetch("/api/test-query").then((r) => r.json());
+  const sql = document.getElementById("sqlInput").value;
+
+  document.getElementById("query").innerText = "Running...";
+
+  let res = await fetch("/api/test-query", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ sql }),
+  }).then((r) => r.json());
+
   document.getElementById("query").innerText = JSON.stringify(res, null, 2);
 }
 

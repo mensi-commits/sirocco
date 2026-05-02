@@ -36,6 +36,16 @@ type Event struct {
 	Payload interface{} `json:"payload"`
 }
 
+// sendEvent sends an event to the UI endpoint asynchronously.
+// It logs the event and any errors that occur during sending.
+// The event is sent as a JSON payload with the following structure:
+// {
+//   "type": "event_type",
+//   "time": "timestamp",
+//   "payload": { ... }
+// }
+// Events types include: "worker_registered", "heartbeat", "route", etc.
+
 func sendEvent(eventType string, payload any) {
 	body, err := json.Marshal(Event{
 		Type:    eventType,
@@ -272,6 +282,8 @@ func main() {
 
 	mux := http.NewServeMux()
 
+	// HEALTH CHECK ENDPOINT FOR CLUSTER STATUS.
+	// Receives GET /health from any source, responds with cluster status and version.
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("[HTTP] /health")
 		writeJSON(w, 200, map[string]any{
@@ -280,6 +292,8 @@ func main() {
 		})
 	})
 
+	// WORKERS ENDPOINT TO LIST ALL REGISTERED WORKERS.
+	// Receives GET /workers, responds with list of all workers and their status.
 	mux.HandleFunc("/workers", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("[HTTP] /workers")
 		writeJSON(w, 200, map[string]any{
@@ -289,6 +303,8 @@ func main() {
 		})
 	})
 
+
+	// ACTIVE WORKERS ENDPOINT TO LIST ONLY HEALTHY WORKERS.
 	mux.HandleFunc("/workers/register", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("[HTTP] /workers/register")
 
@@ -304,6 +320,8 @@ func main() {
 		writeJSON(w, 200, resp)
 	})
 
+	// HEARTBEAT ENDPOINT FOR WORKERS.
+	// Receives POST /workers/heartbeat from workers, updates their status.
 	mux.HandleFunc("/workers/heartbeat", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("[HTTP] /workers/heartbeat")
 

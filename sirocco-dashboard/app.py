@@ -5,8 +5,8 @@ import time
 app = Flask(__name__)
 
 CLUSTER = "http://192.168.1.104:8081"
-SWITCH  = "http://192.168.1.104:8080"
-WORKER = "http://192.168.1.104:8091"
+SWITCH = "http://192.168.1.104:8080"
+
 
 # =========================
 # DASHBOARD PAGE
@@ -34,18 +34,13 @@ def receive_event():
 
     return jsonify({"ok": True})
 
-
-@app.route("/api/events")
-def get_events():
-    return jsonify(events)
-
 # =========================
 # WORKERS
 # =========================
 @app.route("/api/workers")
 def workers():
     try:
-        r = requests.get(f"{WORKER}/health", timeout=3)
+        r = requests.get(f"{CLUSTER}/workers", timeout=3)
         return jsonify(r.json())
     except Exception as e:
         return jsonify({"error": str(e)})
@@ -78,17 +73,30 @@ def switch():
 # =========================
 # LIVE QUERY SIMULATION (optional)
 # =========================
-@app.route("/api/test-query")
+
+@app.route("/api/test-query", methods=["POST"])
 def test_query():
     try:
+        payload = request.json or {}
+
+        sql = payload.get("sql", "SELECT * FROM users WHERE user_id = 1")
+
         r = requests.post(
             f"{SWITCH}/query",
-            json={"sql": "SELECT * FROM users WHERE user_id = 1"},
+            json={"sql": sql},
             timeout=5
         )
-        return jsonify(r.json())
+
+        return jsonify({
+            "ok": True,
+            "result": r.json()
+        })
+
     except Exception as e:
-        return jsonify({"error": str(e)})
+        return jsonify({
+            "ok": False,
+            "error": str(e)
+        })
 
 
 if __name__ == "__main__":
