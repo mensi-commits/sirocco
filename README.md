@@ -290,6 +290,7 @@ Here’s your customized version for your repo **`mensi-commits/sirocco`**:
     />
   </picture>
 </a>
+
 ---
 
 ## 📊 Alternative Style View
