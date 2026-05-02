@@ -1,4 +1,4 @@
-![Go CI](https://github.com/mensi-commits/sirocco/actions/workflows/go.yml/badge.svg)
+[![Go CI](https://github.com/mensi-commits/sirocco/actions/workflows/go.yml/badge.svg)](https://github.com/mensi-commits/sirocco/actions/workflows/go.yml)
 
 # SiroccoDB
 
