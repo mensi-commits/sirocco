@@ -279,18 +279,8 @@ This project is open source and available under the [MIT License](LICENSE).
 ## Star History
 
 <a href="https://www.star-history.com/?repos=mensi-commits%2Fsirocco&type=timeline&logscale=&legend=top-left">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=timeline&theme=dark&logscale&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=timeline&logscale&legend=top-left" />
    <img alt="Star History Chart" src="star-history.png" />
- </picture>
 </a>
-
----
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/chart?repos=mensi-commits/sirocco&type=date)](https://star-history.com/#mensi-commits/sirocco&Date)
 
 ---
 
