@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>SiroccoDB Test App</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>🌬️ SiroccoDB Test App</h1>
+
+      <div class="card">
+        <h2>Add User</h2>
+
+        <input id="user_id" placeholder="User ID" />
+        <input id="name" placeholder="Name" />
+        <input id="email" placeholder="Email" />
+
+        <button onclick="addUser()">Insert</button>
+      </div>
+
+      <div class="card">
+        <h2>Get User</h2>
+
+        <input id="search_id" placeholder="User ID to search" />
+        <button onclick="getUser()">Search</button>
+      </div>
+
+      <div class="card">
+        <h2>Output</h2>
+        <button onclick="loadUsers()">Refresh All</button>
+        <pre id="output"></pre>
+      </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
