@@ -37,6 +37,12 @@ var (
 	eqRe     = regexp.MustCompile(`(?i)^\s*([a-zA-Z_][\w]*)\s*=\s*(.+?)\s*$`)
 )
 
+
+// Parse takes a raw SQL string and returns a structured Query object.
+// It supports basic INSERT, SELECT, UPDATE, and DELETE statements with simple WHERE clauses.
+// For routing purposes, it extracts the table name and a single key value (if present) from the WHERE clause.
+// it is used by the Switch to determine routing based on the table and key value.
+
 func Parse(raw string) (*Query, error) {
 	raw = strings.TrimSpace(raw)
 	raw = strings.TrimSuffix(raw, ";")
@@ -67,7 +73,7 @@ func Parse(raw string) (*Query, error) {
     q.KeyValue = ""
 
     return q, nil
-}
+	}
 
 	if m := selectRe.FindStringSubmatch(raw); m != nil {
 		fields := strings.TrimSpace(m[1])

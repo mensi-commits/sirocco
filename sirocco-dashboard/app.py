@@ -99,7 +99,7 @@ def test_query():
             json={"sql": sql},
             timeout=5
         )
-
+        print("Received query result:", r.json())
         return jsonify({
             "ok": True,
             "result": r.json()

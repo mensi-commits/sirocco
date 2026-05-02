@@ -176,11 +176,15 @@ func main() {
 
 func (s *Switch) handleQuery(sql string) (protocol.QueryResponse, error) {
 	log.Printf("[PARSE] %s", sql)
-
+	
 	q, err := sqlparse.Parse(sql)
+
 	if err != nil {
 		return protocol.QueryResponse{}, err
 	}
+
+	b, _ := json.MarshalIndent(q, "", "  ")
+	log.Println("[PARSE RESULT]\n", string(b))
 
 	log.Printf("[OP] %s table=%s key=%s", q.Operation, q.Table, q.KeyValue)
 
