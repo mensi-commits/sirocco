@@ -1,6 +1,4 @@
-Here is a clean, professional `README.md` without emojis, ready for real project use.
-
----
+![Go CI](https://github.com/mensi-commits/sirocco/actions/workflows/go.yml/badge.svg)
 
 # SiroccoDB
 
