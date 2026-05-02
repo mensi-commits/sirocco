@@ -282,6 +282,7 @@ Here’s your customized version for your repo **`mensi-commits/sirocco`**:
     src="https://api.star-history.com/svg?repos=mensi-commits/sirocco&type=Date"
   />
 </a>
+
 ---
 
 ## 📊 Alternative Style View
