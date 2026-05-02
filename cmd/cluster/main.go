@@ -20,7 +20,7 @@ import (
    CONFIG
 ========================= */
 
-var UI_ENDPOINT = "http://192.168.1.101:7000/api/events"
+var UI_ENDPOINT = "http://192.168.1.101:5001/api/events"
 
 var httpClient = &http.Client{
 	Timeout: 2 * time.Second,
@@ -304,33 +304,6 @@ func main() {
 	})
 
 
-	// ACTIVE WORKERS ENDPOINT TO LIST ONLY HEALTHY WORKERS.
-	mux.HandleFunc("/workers/register", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("[HTTP] /workers/register")
-
-		var req protocol.WorkerRegistrationRequest
-		_ = json.NewDecoder(r.Body).Decode(&req)
-
-		resp := cluster.register(Worker{
-			ID:      req.ID,
-			Address: req.Address,
-			Role:    req.Role,
-		})
-
-		writeJSON(w, 200, resp)
-	})
-
-	// HEARTBEAT ENDPOINT FOR WORKERS.
-	// Receives POST /workers/heartbeat from workers, updates their status.
-	mux.HandleFunc("/workers/heartbeat", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("[HTTP] /workers/heartbeat")
-
-		var req protocol.HeartbeatRequest
-		_ = json.NewDecoder(r.Body).Decode(&req)
-
-		writeJSON(w, 200, cluster.heartbeat(req))
-	})
-
 	mux.HandleFunc("/route", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("[HTTP] /route")
 
@@ -347,6 +320,36 @@ func main() {
 
 		writeJSON(w, 200, resp)
 	})
+
+
+
+	// HEARTBEAT ENDPOINT FOR WORKERS.
+	// Receives POST /workers/heartbeat from workers, updates their status.
+	mux.HandleFunc("/workers/heartbeat", func(w http.ResponseWriter, r *http.Request) {
+		log.Println("[HTTP] /workers/heartbeat")
+
+		var req protocol.HeartbeatRequest
+		_ = json.NewDecoder(r.Body).Decode(&req)
+
+		writeJSON(w, 200, cluster.heartbeat(req))
+	})
+
+	// ACTIVE WORKERS ENDPOINT TO LIST ONLY HEALTHY WORKERS.
+	mux.HandleFunc("/workers/register", func(w http.ResponseWriter, r *http.Request) {
+		log.Println("[HTTP] /workers/register")
+
+		var req protocol.WorkerRegistrationRequest
+		_ = json.NewDecoder(r.Body).Decode(&req)
+
+		resp := cluster.register(Worker{
+			ID:      req.ID,
+			Address: req.Address,
+			Role:    req.Role,
+		})
+
+		writeJSON(w, 200, resp)
+	})
+
 
 	log.Printf("Cluster running on %s", *addr)
 	log.Fatal(http.ListenAndServe(*addr, mux))

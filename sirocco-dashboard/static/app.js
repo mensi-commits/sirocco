@@ -1,6 +1,6 @@
 async function fetchData() {
-  let switchRes = await fetch("/api/switch").then((r) => r.json());
-  document.getElementById("switch").innerText = JSON.stringify(
+  let switchRes = await fetch("/api/health").then((r) => r.json());
+  document.getElementById("cluster").innerText = JSON.stringify(
     switchRes,
     null,
     2,
@@ -13,7 +13,7 @@ async function fetchData() {
     2,
   );
 
-  let routes = await fetch("/api/routes").then((r) => r.json());
+  let routes = await fetch("/api/route").then((r) => r.json());
   document.getElementById("routes").innerText = JSON.stringify(routes, null, 2);
 }
 

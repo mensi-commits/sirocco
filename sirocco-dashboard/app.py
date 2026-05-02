@@ -34,6 +34,27 @@ def receive_event():
 
     return jsonify({"ok": True})
 
+
+@app.route("/api/events", methods=["GET"])
+def get_events():
+    return jsonify({
+        "ok": True,
+        "events": events
+    })
+
+# =========================
+# CLUSTER HEALTH 
+# =========================
+@app.route("/api/health")
+def cluster():
+    try:
+        r = requests.get(f"{CLUSTER}/health", timeout=3)
+        return jsonify(r.json())
+    except Exception as e:
+        return jsonify({"error": str(e)})
+
+
+
 # =========================
 # WORKERS
 # =========================
@@ -46,10 +67,11 @@ def workers():
         return jsonify({"error": str(e)})
 
 
+
 # =========================
 # ROUTES
 # =========================
-@app.route("/api/routes")
+@app.route("/api/route")
 def routes():
     try:
         r = requests.get(f"{CLUSTER}/route", timeout=3)
@@ -57,17 +79,6 @@ def routes():
     except Exception as e:
         return jsonify({"error": str(e)})
 
-
-# =========================
-# SWITCH HEALTH + CACHE
-# =========================
-@app.route("/api/switch")
-def switch():
-    try:
-        r = requests.get(f"{SWITCH}/health", timeout=3)
-        return jsonify(r.json())
-    except Exception as e:
-        return jsonify({"error": str(e)})
 
 
 # =========================
