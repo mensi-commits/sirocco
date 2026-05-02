@@ -285,6 +285,12 @@ Here’s your customized version for your repo **`mensi-commits/sirocco`**:
 
 ---
 
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
 ## 📊 Alternative Style View
 
 <picture>
@@ -292,3 +298,7 @@ Here’s your customized version for your repo **`mensi-commits/sirocco`**:
   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=mensi-commits/sirocco&style=landscape1" />
   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=mensi-commits/sirocco&style=landscape1" />
 </picture>
+
+---
+
+Built with &hearts; by [mensi](https://enscribe.dev)!
