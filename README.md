@@ -8,8 +8,6 @@ A lightweight distributed database system built with Go, featuring a SQL-like qu
 
 ![alt text](./design-v1.png)
 
-=======
-
 ---
 
 # Features
