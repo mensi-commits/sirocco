@@ -28,22 +28,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-<p align="center">
- <a href="https://www.star-history.com/garrytan/gstack">
-  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=garrytan/gstack&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=garrytan/gstack" />
-   <img alt="Star History Rank" src="https://api.star-history.com/badge?repo=garrytan/gstack" />
-  </picture>
- </a>
-</p>
-
----
-
-### TEST
-
-[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=mensi-commits)](https://github.com/anuraghazra/github-readme-stats)
-
----
-
 Built with &hearts; by [mensi](https://mensi-commits.github.io/)!
