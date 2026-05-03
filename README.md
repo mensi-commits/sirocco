@@ -23,6 +23,8 @@ A lightweight distributed database system built with Go, featuring a SQL-like qu
 
 # Requirements
 
+# Requirements
+
 ## System
 
 - Go 1.20 or higher
