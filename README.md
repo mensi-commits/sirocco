@@ -42,7 +42,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ### TEST
 
-[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=anuraghazra)](https://github.com/anuraghazra/github-readme-stats)
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=mensi-commits)](https://github.com/anuraghazra/github-readme-stats)
 
 ---
 
