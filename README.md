@@ -27,6 +27,7 @@ This project is open source and available under the [MIT License](LICENSE).
 </a>
 
 ---
+
 <p align="center">
  <a href="https://www.star-history.com/garrytan/gstack">
   <picture>
@@ -36,6 +37,12 @@ This project is open source and available under the [MIT License](LICENSE).
   </picture>
  </a>
 </p>
+
+---
+
+### TEST
+
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=anuraghazra)](https://github.com/anuraghazra/github-readme-stats)
 
 ---
 
