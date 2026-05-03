@@ -16,7 +16,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-## Star History
+### Star History
 
 <a href="https://www.star-history.com/?repos=mensi-commits%2Fsirocco&type=date&theme=dark&legend=top-left">
  <picture>
