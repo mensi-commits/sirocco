@@ -28,4 +28,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-Built with &hearts; by [mensi](https://mensi-commits.github.io/)!
+Built with &hearts; by [mensi](https://mensi-commits.github.io/)
