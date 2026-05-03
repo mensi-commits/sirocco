@@ -4,9 +4,26 @@ A lightweight distributed database system built with Go, featuring a SQL-like qu
 
 ---
 
-# Architecture
+# Architectures
 
-![alt text](./design-v1.png)
+![alt text](./design.png)
+<<<<<<< HEAD
+
+```
+Client / Flask App
+        ↓
+   Switch (8080)
+        ↓
+   Cluster (8081)
+        ↓
+ Workers (8091, 8092, ...)
+        ↓
+     MySQL
+```
+
+=======
+
+> > > > > > > 64e2b2fbd0ac6ab375fb6343bbc275beaf461f9c
 
 ---
 
@@ -20,8 +37,6 @@ A lightweight distributed database system built with Go, featuring a SQL-like qu
 - JSON-based internal communication protocol
 
 ---
-
-
 
 # Requirements
 
