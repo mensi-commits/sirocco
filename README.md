@@ -8,18 +8,6 @@ A lightweight distributed database system built with Go, featuring a SQL-like qu
 
 ![alt text](./design-v1.png)
 
-```
-Client / Flask App
-        ↓
-   Switch (8080)
-        ↓
-   Cluster (8081)
-        ↓
- Workers (8091, 8092, ...)
-        ↓
-     MySQL
-```
-
 =======
 
 ---
