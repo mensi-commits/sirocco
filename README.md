@@ -1,14 +1,6 @@
 # SiroccoDB
 
-A lightweight distributed database system built with Go, featuring a SQL-like query engine, a routing switch layer, a cluster coordinator, and worker nodes backed by MySQL.
-
----
-
-# Architectures
-
-![alt text](./system-design/img/1.png)
-
-![alt text](./system-design/img/2.png)
+A distributed database system built with Go, featuring a SQL-like query engine, a routing switch layer, a cluster coordinator, and worker nodes backed by MySQL.
 
 ---
 
