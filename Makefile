@@ -14,7 +14,7 @@ run-worker2:
 root:root@tcp(127.0.0.1:3306)/sirocco
 
 
-
+go
 go run ./cmd/worker \
   -id=worker-2 \
   -addr=:8092 \
