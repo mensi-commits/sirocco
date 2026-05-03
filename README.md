@@ -4,7 +4,7 @@ A lightweight distributed database system built with Go, featuring a SQL-like qu
 
 ---
 
-# Architectures
+# Architecture
 
 ![alt text](./design-v1.png)
 
