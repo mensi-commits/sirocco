@@ -1,4 +1,7 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Build](https://img.shields.io/github/actions/workflow/status/user/repo/ci.yml)
+![Stars](https://img.shields.io/github/stars/user/repo)
+![Issues](https://img.shields.io/github/issues/user/repo)
 
 # SiroccoDB
 
