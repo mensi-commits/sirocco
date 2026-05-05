@@ -7,3 +7,7 @@
 ## Replication
 
 ![alt text](./img/2.png)
+
+## Sharding
+
+![alt text](./img/3.png)
