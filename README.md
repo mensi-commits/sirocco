@@ -1,8 +1,3 @@
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Build](https://img.shields.io/github/actions/workflow/status/user/repo/ci.yml)
-![Stars](https://img.shields.io/github/stars/user/repo)
-![Issues](https://img.shields.io/github/issues/user/repo)
-
 # SiroccoDB
 
 A distributed database system built with Go, featuring a SQL-like query engine, a routing switch layer, a cluster coordinator, and worker nodes backed by MySQL.
