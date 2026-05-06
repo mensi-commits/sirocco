@@ -14,7 +14,7 @@ type WorkerRequest struct {
 	SQL   string `json:"sql"`
 	Type  string `json:"type"`
 	Table string `json:"table"`
-	Shard string `json:"shard"` // IMPORTANT: comes from switch
+	Shard string `json:"shard"` 
 }
 
 // map shard → DB connection
