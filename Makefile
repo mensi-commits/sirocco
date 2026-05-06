@@ -1,22 +1,57 @@
-run-cluster:
-	go run ./cmd/cluster -addr 0.0.0.0:8081 
+# Sirocco Makefile
 
-run-switch:
-	go run ./cmd/switch -addr 0.0.0.0:8080 -cluster http://192.168.1.104:8081
+APP_NAME_SWITCH=switch
+APP_NAME_WORKER=worker
 
+SWITCH_DIR=./switch
+WORKER_DIR=./worker
 
-run-worker1:
-	go run ./cmd/worker -id worker-1 -addr 0.0.0.0:8091 -cluster http://192.168.1.104:8081
+SWITCH_PORT=8080
+WORKER_PORT_1=9001
+WORKER_PORT_2=9002
 
-run-worker2:
-	go run ./cmd/worker -id worker-2 -addr 0.0.0.0:8092 -cluster http://192.168.1.104:8081
+.PHONY: all switch worker run clean
 
-root:root@tcp(127.0.0.1:3306)/sirocco
+# ------------------------
+# Run everything
+# ------------------------
+all: worker switch
 
+# ------------------------
+# Run switch (router)
+# ------------------------
+switch:
+	@echo "Starting Sirocco Switch on :$(SWITCH_PORT)"
+	@cd $(SWITCH_DIR) && go run main.go
 
+# ------------------------
+# Run worker 1
+# ------------------------
+worker:
+	@echo "Starting Worker 1 on :$(WORKER_PORT_1)"
+	@cd $(WORKER_DIR) && PORT=$(WORKER_PORT_1) go run main.go
 
-go run ./cmd/worker \
-  -id=worker-2 \
-  -addr=:8092 \
-  -cluster=http://localhost:8081 \
-  -mysql="sirocco:sirocco@tcp(127.0.0.1:3306)/sirocco"
+# ------------------------
+# Optional: run worker 2
+# ------------------------
+worker2:
+	@echo "Starting Worker 2 on :$(WORKER_PORT_2)"
+	@cd $(WORKER_DIR) && PORT=$(WORKER_PORT_2) go run main.go
+
+# ------------------------
+# Run full system (recommended)
+# ------------------------
+run:
+	@echo "Starting full Sirocco system..."
+
+	@make worker & \
+	make worker2 & \
+	sleep 2 && \
+	make switch
+
+# ------------------------
+# Clean processes (optional helper)
+# ------------------------
+clean:
+	@echo "Killing Go processes..."
+	@pkill -f "go run"

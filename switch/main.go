@@ -29,11 +29,18 @@ func queryHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// 🔥 LOG RAW QUERY (debugging)
+	log.Printf("Incoming SQL: %s\n", req.SQL)
+
 	info, err := ParseSQL(req.SQL)
 	if err != nil {
+		log.Printf("Parse error: %v\n", err)
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+
+	// 🔥 LOG PARSED RESULT
+	log.Printf("Parsed -> Type: %s | Table: %s\n", info.Type, info.Table)
 
 	response := map[string]any{
 		"status": "parsed",
@@ -45,7 +52,6 @@ func queryHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
 }
-
 
 // ParseSQL analyzes a SQL query and extracts routing info
 func ParseSQL(query string) (*QueryInfo, error) {
@@ -120,6 +126,6 @@ func main() {
 
 	http.HandleFunc("/query", queryHandler)
 	fmt.Println("Sirocco switch running on :8080")
-    http.ListenAndServe(":8080", nil)
+    http.ListenAndServe("0.0.0.0:8080", nil)
 
 }
