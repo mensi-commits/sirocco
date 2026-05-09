@@ -11,3 +11,7 @@
 ## Sharding
 
 ![alt text](./img/3.png)
+
+## Agent
+
+![alt text](./img/4.png)
