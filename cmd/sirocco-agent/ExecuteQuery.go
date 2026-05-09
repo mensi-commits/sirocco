@@ -1,5 +1,29 @@
-// WildMutt executes a SQL query on the local shard DB (shard executor)
-func WildMutt(w http.ResponseWriter, r *http.Request) {
+package main
+
+import (
+	"database/sql"
+	"encoding/json"
+	"net/http"
+)
+
+type WorkerCommand struct {
+	Cmd      string `json:"cmd"`
+	SQL      string `json:"sql"`
+	ShardID  int    `json:"shard_id"`
+	ReadOnly bool   `json:"read_only"`
+}
+
+type WorkerResponse struct {
+	Success      bool                     `json:"success"`
+	Message      string                   `json:"message"`
+	ShardID      int                      `json:"shard_id"`
+	Rows         []map[string]interface{} `json:"rows,omitempty"`
+	AffectedRows int64                    `json:"affected_rows,omitempty"`
+	Error        string                   `json:"error,omitempty"`
+}
+
+// ExecuteQuery executes a SQL query on the local shard database
+func ExecuteQuery(w http.ResponseWriter, r *http.Request) {
 	var cmd WorkerCommand
 
 	if err := json.NewDecoder(r.Body).Decode(&cmd); err != nil {
@@ -17,7 +41,7 @@ func WildMutt(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Try SELECT-like execution first
+	// Try SELECT first
 	rows, err := db.Query(cmd.SQL)
 	if err == nil {
 		defer rows.Close()
@@ -37,13 +61,13 @@ func WildMutt(w http.ResponseWriter, r *http.Request) {
 
 		for rows.Next() {
 			values := make([]interface{}, len(cols))
-			valuePtrs := make([]interface{}, len(cols))
+			ptrs := make([]interface{}, len(cols))
 
 			for i := range values {
-				valuePtrs[i] = &values[i]
+				ptrs[i] = &values[i]
 			}
 
-			if err := rows.Scan(valuePtrs...); err != nil {
+			if err := rows.Scan(ptrs...); err != nil {
 				sendJSON(w, WorkerResponse{
 					Success: false,
 					Message: "failed to scan row",
@@ -53,17 +77,17 @@ func WildMutt(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			rowMap := map[string]interface{}{}
+			row := map[string]interface{}{}
 			for i, col := range cols {
 				val := values[i]
 				if b, ok := val.([]byte); ok {
-					rowMap[col] = string(b)
+					row[col] = string(b)
 				} else {
-					rowMap[col] = val
+					row[col] = val
 				}
 			}
 
-			results = append(results, rowMap)
+			results = append(results, row)
 		}
 
 		sendJSON(w, WorkerResponse{
@@ -75,7 +99,7 @@ func WildMutt(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Otherwise treat it as INSERT/UPDATE/DELETE
+	// Fallback: INSERT / UPDATE / DELETE
 	res, execErr := db.Exec(cmd.SQL)
 	if execErr != nil {
 		sendJSON(w, WorkerResponse{
@@ -96,3 +120,10 @@ func WildMutt(w http.ResponseWriter, r *http.Request) {
 		AffectedRows: affected,
 	})
 }
+
+func sendJSON(w http.ResponseWriter, data WorkerResponse) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(data)
+}
+
+var db *sql.DB
