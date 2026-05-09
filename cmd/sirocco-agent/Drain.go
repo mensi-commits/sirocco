@@ -23,7 +23,22 @@ var acceptingRequests int32 = 1 // 1 = active, 0 = draining
 
 var inFlight sync.WaitGroup
 
-// Drain stops the worker from accepting new queries and waits for active ones
+// Drain puts the worker into graceful shutdown mode.
+//
+// It stops the worker from accepting new incoming queries from the Switch
+// while allowing all currently running operations to finish safely.
+//
+// This is used during:
+// - scaling down (removing workers)
+// - maintenance windows
+// - shard migration preparation
+//
+// Once Drain is triggered:
+//   - new requests are rejected or routed elsewhere by the Switch
+//   - in-flight queries are allowed to complete
+//   - the worker transitions to a "drained" state
+//
+// This ensures zero data loss and safe rebalancing in the Sirocco cluster.
 func Drain(w http.ResponseWriter, r *http.Request) {
 	var cmd DrainCommand
 

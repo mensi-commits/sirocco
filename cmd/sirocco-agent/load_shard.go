@@ -21,7 +21,24 @@ type LoadShardResponse struct {
 	Error   string `json:"error,omitempty"`
 }
 
-// LoadShard restores a shard database from a backup source
+// LoadShard restores and initializes a database shard from a backup source.
+//
+// It is used during:
+//   - horizontal scaling (adding new shards)
+//   - recovery after failure
+//   - cluster rebalancing operations
+//
+// The function performs the following steps:
+//   1. Creates the shard database if it does not exist
+//   2. Restores data from the provided backup dump (DataSource)
+//   3. Initializes the shard so it becomes ready for query routing
+//
+// The DataSource typically points to a pre-downloaded backup file
+// (e.g., from S3 or a shared storage system).
+//
+// Important:
+// This operation is heavy and blocking. It should only be triggered
+// by the cluster control plane (Switch), not by client requests.
 func LoadShard(w http.ResponseWriter, r *http.Request) {
 	var cmd LoadShardCommand
 

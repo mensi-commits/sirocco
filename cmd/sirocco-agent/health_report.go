@@ -18,7 +18,20 @@ type HealthReportResponse struct {
 	Message string `json:"message"`
 }
 
-// HealthReport sends worker health status to the cluster
+// HealthReport collects and returns the current runtime health state
+// of the worker to the cluster control plane.
+//
+// It is used by the Switch layer and monitoring system to assess
+// node health and make routing / scaling decisions.
+//
+// Reported metrics typically include:
+//   - CPU usage
+//   - Memory usage
+//   - Active database connections
+//   - Overall worker status (healthy, degraded, unhealthy)
+//
+// This function does not modify system state. It is purely observational
+// and is called periodically as part of cluster monitoring.
 func HealthReport(w http.ResponseWriter, r *http.Request) {
 	var report HealthReportCommand
 
@@ -60,4 +73,4 @@ func HealthReport(w http.ResponseWriter, r *http.Request) {
 func sendHealthJSON(w http.ResponseWriter, data HealthReportResponse) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(data)
-}
+}	
