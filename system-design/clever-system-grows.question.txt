@@ -1,0 +1,3 @@
+if load grows , and all shards are running with full capacity , 
+what does the system do to adapt to the new situation , 
+knowing that the is more available agents that can be used ?
