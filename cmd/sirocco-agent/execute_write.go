@@ -21,8 +21,23 @@ type WriteResponse struct {
 	AffectedRows int64  `json:"affected_rows,omitempty"`
 	Error        string `json:"error,omitempty"`
 }
-
-// ExecuteWrite handles INSERT / UPDATE / DELETE inside a transaction
+// ExecuteWrite handles write operations (INSERT, UPDATE, DELETE)
+// on the local shard database.
+//
+// It is invoked by the Switch layer (XLR8 router) when a write request
+// is routed to this worker.
+//
+// Responsibilities:
+//   - Execute SQL write statements inside a database transaction
+//   - Ensure atomicity and durability of changes
+//   - Return the number of affected rows or error details
+//
+// The function guarantees that each write operation is safely committed
+// or rolled back in case of failure, preserving shard consistency.
+//
+// Note:
+// Write operations should never be executed through ExecuteRead.
+// They must go through this function to ensure transactional safety.
 func ExecuteWrite(w http.ResponseWriter, r *http.Request) {
 	var cmd WriteCommand
 

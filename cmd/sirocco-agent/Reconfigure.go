@@ -22,7 +22,30 @@ type ReconfigureResponse struct {
 // global worker state (dynamic role)
 var workerRole atomic.Value
 
-// Reconfigure updates the worker role dynamically at runtime
+// Reconfigure dynamically updates the role of a worker at runtime
+// without requiring a restart.
+//
+// It is used by the Switch (control plane) to change how a worker
+// participates in the Sirocco cluster.
+//
+// Supported roles:
+//   - primary   : handles write operations and authoritative data
+//   - replica   : receives replicated data and serves read traffic
+//   - readonly  : serves read-only queries without accepting writes
+//
+// Responsibilities:
+//   - Validate the requested role
+//   - Atomically update the worker's runtime role
+//   - Allow the Switch to immediately adjust routing decisions
+//
+// This mechanism enables live topology changes such as:
+//   - failover (replica → primary)
+//   - load redistribution
+//   - read/write role separation
+//
+// Note:
+// Role changes take effect immediately and may influence query routing,
+// replication behavior, and write acceptance policies.
 func Reconfigure(w http.ResponseWriter, r *http.Request) {
 	var cmd ReconfigureCommand
 

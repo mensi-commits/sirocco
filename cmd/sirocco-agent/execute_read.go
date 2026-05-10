@@ -22,8 +22,28 @@ type WorkerResponse struct {
 	Error        string                   `json:"error,omitempty"`
 }
 
-// ExecuteQuery executes a SQL query on the local shard database
-func ExecuteQuery(w http.ResponseWriter, r *http.Request) {
+// ExecuteRead handles read-only SQL queries (SELECT statements)
+// executed on the local shard database.
+//
+// It is invoked by the Switch layer (XLR8 router) when a read request
+// is routed to this worker.
+//
+// Responsibilities:
+//   - Execute SELECT queries against the assigned shard
+//   - Format database rows into structured JSON
+//   - Return results to the cluster in a consistent response format
+//
+// Note:
+// This function is intended for read operations only. Write operations
+// should be handled by ExecuteWrite to maintain shard consistency.
+
+// {
+//   "cmd": "EXECUTE_QUERY",
+//   "sql": "SELECT * FROM users WHERE id=55",
+//   "shard_id": 3,
+//   "read_only": true
+// }
+func ExecuteRead(w http.ResponseWriter, r *http.Request) {
 	var cmd WorkerCommand
 
 	if err := json.NewDecoder(r.Body).Decode(&cmd); err != nil {
@@ -99,7 +119,7 @@ func ExecuteQuery(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Fallback: INSERT / UPDATE / DELETE
+	// Fallback: INSERT / UPDATE / DELETE (should ideally not be here in read path)
 	res, execErr := db.Exec(cmd.SQL)
 	if execErr != nil {
 		sendJSON(w, WorkerResponse{

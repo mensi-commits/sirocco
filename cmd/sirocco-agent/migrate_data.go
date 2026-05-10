@@ -37,7 +37,27 @@ type ImportCommand struct {
 	Rows    []Row  `json:"rows"`
 }
 
-// MigrateData exports a subset of data from one shard and sends it to another worker
+// MigrateData exports a subset of rows from one shard and transfers them
+// to another worker responsible for a different shard.
+//
+// It is used during:
+//   - rebalancing of data across shards
+//   - scaling operations when redistributing load
+//   - shard splitting or consolidation
+//
+// The function performs the following steps:
+//   1. Queries the source shard for a specific ID range
+//   2. Serializes the selected rows into an in-memory format
+//   3. Sends the data to the target worker via HTTP
+//   4. The target worker is expected to import the data into its shard
+//
+// Important:
+// This operation is potentially heavy (data-intensive) and should be
+// orchestrated by the Switch layer, not triggered directly by clients.
+//
+// Consistency Note:
+// During migration, writes to the affected range should be controlled
+// or temporarily locked at the cluster level to prevent conflicts.
 func MigrateData(w http.ResponseWriter, r *http.Request) {
 	var cmd MigrateDataCommand
 

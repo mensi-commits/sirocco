@@ -18,7 +18,31 @@ type StreamReplicationResponse struct {
 	Mode    string `json:"mode"`
 }
 
-// StreamReplication starts a replication stream from primary to replicas
+// StreamReplication initializes a continuous replication stream from a primary
+// shard to its replica nodes.
+//
+// It is used to maintain near real-time consistency between primary and replica
+// shards in the Sirocco distributed database system.
+//
+// Supported modes:
+//   - async : replicas are updated asynchronously (eventual consistency)
+//   - sync  : replicas are updated with stronger consistency guarantees
+//
+// Responsibilities:
+//   - Validate replication request parameters
+//   - Establish a replication stream from the primary source
+//   - Continuously propagate changes (typically from WAL/log stream)
+//   - Maintain replication offsets (LSN) for recovery and replay
+//
+// In a production implementation, this function would:
+//   - Attach to a Write-Ahead Log (WAL) or binlog stream
+//   - Stream incremental changes to replica workers
+//   - Handle retry logic, backpressure, and failure recovery
+//
+// Note:
+// The current implementation is a placeholder loop simulating a live
+// replication process. It must be replaced with a real log-driven stream
+// in a production-grade system.
 func StreamReplication(w http.ResponseWriter, r *http.Request) {
 	var cmd StreamReplicationCommand
 

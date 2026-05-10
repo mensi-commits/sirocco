@@ -19,6 +19,23 @@ type HeartbeatResponse struct {
 }
 
 // Heartbeat is a lightweight liveness signal sent by the worker
+// to the cluster control plane at regular intervals.
+//
+// It is used by the Switch layer and cluster monitor to detect whether
+// a worker node is alive, responsive, and eligible for request routing.
+//
+// Responsibilities:
+//   - Validate worker identity and timestamp sanity
+//   - Confirm that the worker is still reachable
+//   - Update liveness state in the cluster registry (external system)
+//
+// This function is intentionally lightweight and stateless. It does not
+// perform any database or query-related operations.
+//
+// If heartbeat signals are missing or delayed, the cluster may:
+//   - mark the worker as unhealthy
+//   - stop routing traffic to it
+//   - trigger failover or resharding logic
 func Heartbeat(w http.ResponseWriter, r *http.Request) {
 	var hb HeartbeatCommand
 
