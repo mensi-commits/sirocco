@@ -6,8 +6,5 @@ import (
 )
 
 func main() {
-	cfg := config.Load()
 
-	server := api.NewServer(cfg)
-	server.Start()
 }

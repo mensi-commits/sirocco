@@ -36,6 +36,13 @@ type WorkerResponse struct {
 // Note:
 // This function is intended for read operations only. Write operations
 // should be handled by ExecuteWrite to maintain shard consistency.
+
+// {
+//   "cmd": "EXECUTE_QUERY",
+//   "sql": "SELECT * FROM users WHERE id=55",
+//   "shard_id": 3,
+//   "read_only": true
+// }
 func ExecuteRead(w http.ResponseWriter, r *http.Request) {
 	var cmd WorkerCommand
 
