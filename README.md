@@ -1,4 +1,6 @@
-# SiroccoDB
+![Alt text](./BANNER.png)
+
+# SiroccoSQL
 
 A distributed database system built with Go, featuring a SQL-like query engine, a routing switch layer, a cluster coordinator, and worker nodes backed by MySQL.
 
@@ -10,11 +12,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-
-
 ### Star history
-
-
 
 <a href="https://www.star-history.com/?repos=mensi-commits%2Fsirocco&type=date&theme=dark&legend=top-left">
  <picture>
