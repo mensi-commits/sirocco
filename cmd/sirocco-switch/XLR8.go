@@ -1,10 +1,34 @@
-package cluster
-
+package main
 import (
 	"fmt"
 	"hash/fnv"
 	"strconv"
+	"time"
 )
+
+type ShardNode struct {
+	ShardID int
+	Role    string // "primary" or "replica"
+	Host    string
+	Port    int
+	Status  string // "ONLINE", "OFFLINE"
+	Weight  int
+}
+
+type ShardInfo struct {
+	ShardID    int
+	HashStart  uint64
+	HashEnd    uint64
+	Primary    *ShardNode
+	Replicas   []ShardNode
+	UpdatedAt  time.Time
+}
+
+type ShardMap struct {
+	Shards    map[int]*ShardInfo
+	LoadedAt  time.Time
+}
+
 
 // -----------------------------
 // ROUTE RESULT

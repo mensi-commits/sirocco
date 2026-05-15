@@ -3,13 +3,10 @@ package main
 import (
 	"fmt"
 
-	"encoding/json"
+
     "net/http"
 
-	"github.com/xwb1989/sqlparser"
-
-	"sirocco-switch/ParseSQL"
-	"sirocco-switch/queryHandler"
+	
 )
 
 // -------------------------

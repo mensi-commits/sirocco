@@ -1,4 +1,16 @@
 
+package main
+
+
+import (
+	"fmt"
+
+
+	"github.com/xwb1989/sqlparser"
+
+)
+
+
 
 // QueryInfo holds extracted routing metadata
 type QueryInfo struct {

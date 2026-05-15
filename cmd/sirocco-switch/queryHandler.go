@@ -1,4 +1,15 @@
 
+package main
+
+
+import (
+
+	"log"
+	"encoding/json"
+    "net/http"
+
+)
+
 
 type QueryRequest struct {
     SQL string `json:"sql"`
